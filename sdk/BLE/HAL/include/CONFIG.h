@@ -18,11 +18,7 @@
 
 #define CHIP_ID								ID_CH592
 
-#ifdef CH59xBLE_ROM
-#include "CH59xBLE_ROM.h"
-#else
 #include "CH59xBLE_LIB.h"
-#endif
 
 #include "CH59x_common.h"
 
