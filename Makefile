@@ -21,12 +21,8 @@ SDK_BLE_HAL_C_SRCS := \
   ./sdk/BLE/HAL/SLEEP.c
 
 SDK_STDPERIPHDRIVER_C_SRCS += \
-  ./sdk/StdPeriphDriver/CH59x_adc.c \
   ./sdk/StdPeriphDriver/CH59x_clk.c \
-  ./sdk/StdPeriphDriver/CH59x_flash.c \
   ./sdk/StdPeriphDriver/CH59x_gpio.c \
-  ./sdk/StdPeriphDriver/CH59x_i2c.c \
-  ./sdk/StdPeriphDriver/CH59x_lcd.c \
   ./sdk/StdPeriphDriver/CH59x_pwr.c \
   ./sdk/StdPeriphDriver/CH59x_sys.c \
   ./sdk/StdPeriphDriver/CH59x_uart1.c

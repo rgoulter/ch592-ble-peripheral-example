@@ -76,16 +76,8 @@
 #include "CH59x_clk.h"
 #include "CH59x_uart.h"
 #include "CH59x_gpio.h"
-#include "CH59x_i2c.h"
-#include "CH59x_flash.h"
 #include "CH59x_pwr.h"
-#include "CH59x_pwm.h"
-#include "CH59x_adc.h"
 #include "CH59x_sys.h"
-#include "CH59x_timer.h"
-#include "CH59x_spi.h"
-#include "CH59x_usbdev.h"
-#include "CH59x_usbhost.h"
 #include "ISP592.h"
 
 
