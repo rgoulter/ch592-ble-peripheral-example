@@ -111,12 +111,6 @@ void CH59x_BLEInit(void)
 #endif
     cfg.ConnectNumber = (PERIPHERAL_MAX_CONNECTION & 3) | (CENTRAL_MAX_CONNECTION << 2);
     cfg.srandCB = SYS_GetSysTickCnt;
-#if(defined TEM_SAMPLE) && (TEM_SAMPLE == TRUE)
-    cfg.tsCB = HAL_GetInterTempValue; // 根据温度变化校准RF和内部RC( 大于7摄氏度 )
-  #if(CLK_OSC32K)
-    cfg.rcCB = Lib_Calibration_LSI; // 内部32K时钟校准
-  #endif
-#endif
 #if(defined(HAL_SLEEP)) && (HAL_SLEEP == TRUE)
     cfg.idleCB = CH59x_LowPower; // 启用睡眠
 #endif
@@ -172,21 +166,6 @@ tmosEvents HAL_ProcessEvent(tmosTaskID task_id, tmosEvents events)
         }
         return events ^ SYS_EVENT_MSG;
     }
-    if(events & LED_BLINK_EVENT)
-    {
-#if(defined HAL_LED) && (HAL_LED == TRUE)
-        HalLedUpdate();
-#endif // HAL_LED
-        return events ^ LED_BLINK_EVENT;
-    }
-    if(events & HAL_KEY_EVENT)
-    {
-#if(defined HAL_KEY) && (HAL_KEY == TRUE)
-        HAL_KeyPoll(); /* Check for keys */
-        tmos_start_task(halTaskID, HAL_KEY_EVENT, MS1_TO_SYSTEM_TIME(100));
-        return events ^ HAL_KEY_EVENT;
-#endif
-    }
     if(events & HAL_REG_INIT_EVENT)
     {
 #if(defined BLE_CALIBRATION_ENABLE) && (BLE_CALIBRATION_ENABLE == TRUE) // 校准任务，单次校准耗时小于10ms
@@ -223,43 +202,10 @@ void HAL_Init()
 #if(defined HAL_SLEEP) && (HAL_SLEEP == TRUE)
     HAL_SleepInit();
 #endif
-#if(defined HAL_LED) && (HAL_LED == TRUE)
-    HAL_LedInit();
-#endif
-#if(defined HAL_KEY) && (HAL_KEY == TRUE)
-    HAL_KeyInit();
-#endif
 #if(defined BLE_CALIBRATION_ENABLE) && (BLE_CALIBRATION_ENABLE == TRUE)
     tmos_start_task(halTaskID, HAL_REG_INIT_EVENT, MS1_TO_SYSTEM_TIME(BLE_CALIBRATION_PERIOD)); // 添加校准任务，单次校准耗时小于10ms
 #endif
 //    tmos_start_task( halTaskID, HAL_TEST_EVENT, 1600 );    // 添加一个测试任务
-}
-
-/*******************************************************************************
- * @fn      HAL_GetInterTempValue
- *
- * @brief   获取内部温感采样值，如果使用了ADC中断采样，需在此函数中暂时屏蔽中断.
- *
- * @return  内部温感采样值.
- */
-uint16_t HAL_GetInterTempValue(void)
-{
-    uint8_t  sensor, channel, config, tkey_cfg;
-    uint16_t adc_data;
-
-    tkey_cfg = R8_TKEY_CFG;
-    sensor = R8_TEM_SENSOR;
-    channel = R8_ADC_CHANNEL;
-    config = R8_ADC_CFG;
-    ADC_InterTSSampInit();
-    R8_ADC_CONVERT |= RB_ADC_START;
-    while(R8_ADC_CONVERT & RB_ADC_START);
-    adc_data = R16_ADC_DATA;
-    R8_TEM_SENSOR = sensor;
-    R8_ADC_CHANNEL = channel;
-    R8_ADC_CFG = config;
-    R8_TKEY_CFG = tkey_cfg;
-    return (adc_data);
 }
 
 /******************************** endfile @ mcu ******************************/

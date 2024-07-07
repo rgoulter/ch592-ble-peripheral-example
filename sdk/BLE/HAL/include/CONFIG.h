@@ -89,15 +89,6 @@
 #ifndef WAKE_UP_RTC_MAX_TIME
 #define WAKE_UP_RTC_MAX_TIME                US_TO_RTC(1600)
 #endif
-#ifndef HAL_KEY
-#define HAL_KEY                             FALSE
-#endif
-#ifndef HAL_LED
-#define HAL_LED                             FALSE
-#endif
-#ifndef TEM_SAMPLE
-#define TEM_SAMPLE                          TRUE
-#endif
 #ifndef BLE_CALIBRATION_ENABLE
 #define BLE_CALIBRATION_ENABLE              TRUE
 #endif

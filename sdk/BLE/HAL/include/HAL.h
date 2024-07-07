@@ -21,8 +21,6 @@ extern "C" {
 #include "CONFIG.h"
 #include "RTC.h"
 #include "SLEEP.h"
-#include "LED.h"
-#include "KEY.h"
 
 /* hal task Event */
 #define LED_BLINK_EVENT       0x0001
@@ -57,13 +55,6 @@ extern tmosEvents HAL_ProcessEvent(tmosTaskID task_id, tmosEvents events);
  * @brief   BLE 库初始化
  */
 extern void CH59x_BLEInit(void);
-
-/**
- * @brief   获取内部温感采样值，如果使用了ADC中断采样，需在此函数中暂时屏蔽中断.
- *
- * @return  内部温感采样值.
- */
-extern uint16_t HAL_GetInterTempValue(void);
 
 /**
  * @brief   内部32k校准
