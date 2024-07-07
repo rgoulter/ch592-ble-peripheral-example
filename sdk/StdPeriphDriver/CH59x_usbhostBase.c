@@ -94,7 +94,7 @@ uint8_t AnalyzeRootHub(void)
             ThisUsbDev.DeviceSpeed = R8_USB_MIS_ST & RB_UMS_DM_LEVEL ? 0 : 1;
             ThisUsbDev.DeviceStatus = ROOT_DEV_CONNECTED; //置连接标志
 #endif
-            PRINT("USB dev in\n");
+            PRINT("USB dev in\r\n");
             s = ERR_USB_CONNECT;
         }
     }
@@ -107,7 +107,7 @@ uint8_t AnalyzeRootHub(void)
     { //检测到设备拔出
 #endif
         DisableRootHubPort(); // 关闭端口
-        PRINT("USB dev out\n");
+        PRINT("USB dev out\r\n");
         if(s == ERR_SUCCESS)
         {
             s = ERR_USB_DISCON;
@@ -423,10 +423,10 @@ uint8_t HostCtrlTransfer(uint8_t *DataBuf, uint8_t *RetLen)
     R8_UH_RX_CTRL = R8_UH_TX_CTRL = RB_UH_R_TOG | RB_UH_R_AUTO_TOG | RB_UH_T_TOG | RB_UH_T_AUTO_TOG; // 默认DATA1
     R8_UH_TX_LEN = 0x01;                                                                             // 默认无数据故状态阶段为IN
     RemLen = pSetupReq->wLength;
-    PRINT("wLength: %x\n", RemLen);
+    PRINT("wLength: %x\r\n", RemLen);
     if(RemLen && pBuf) // 需要收发数据
     {
-        PRINT("bRequestType: %x\n", pSetupReq->bRequestType);
+        PRINT("bRequestType: %x\r\n", pSetupReq->bRequestType);
         if(pSetupReq->bRequestType & USB_REQ_TYP_IN) // 收
         {
             while(RemLen)
@@ -477,7 +477,7 @@ uint8_t HostCtrlTransfer(uint8_t *DataBuf, uint8_t *RetLen)
                     *pLen += R8_UH_TX_LEN; // 实际成功收发的总长度
                 }
             }
-            PRINT("Send: %d\n", *pLen);
+            PRINT("Send: %d\r\n", *pLen);
             //          R8_UH_TX_LEN = 0x01;                                                     // 状态阶段为IN
         }
     }

@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.1
  * Date               : 2020/08/06
- * Description        : 外设从机应用主函数及任务系统初始化
+ * Description        : 澶栬����浠庢満搴旂敤涓诲嚱鏁板強浠诲姟绯荤粺鍒濆����鍖�
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* 头文件包含 */
+/* 澶存枃浠跺寘鍚� */
 #include "CONFIG.h"
 #include "HAL.h"
 #include "gattprofile.h"
@@ -29,7 +29,7 @@ const uint8_t MacAddr[6] = {0x84, 0xC2, 0xE4, 0x03, 0x02, 0x02};
 /*********************************************************************
  * @fn      Main_Circulation
  *
- * @brief   主循环
+ * @brief   涓诲惊鐜�
  *
  * @return  none
  */
@@ -46,7 +46,7 @@ void Main_Circulation()
 /*********************************************************************
  * @fn      main
  *
- * @brief   主函数
+ * @brief   涓诲嚱鏁�
  *
  * @return  none
  */
@@ -65,7 +65,7 @@ int main(void)
     GPIOA_ModeCfg(bTXD1, GPIO_ModeOut_PP_5mA);
     UART1_DefInit();
 #endif
-    PRINT("%s\n", VER_LIB);
+    PRINT("%s\r\n", VER_LIB);
     CH59x_BLEInit();
     HAL_Init();
     GAPRole_PeripheralInit();
